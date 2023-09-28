@@ -159,6 +159,7 @@ export class S3Store extends DataStore {
       UploadId: metadata['upload-id'],
       PartNumber: partNumber,
       Body: readStream,
+      ACL: 'public-read',
     })
     log(`[${metadata.file.id}] finished uploading part #${partNumber}`)
     return data.ETag as string
@@ -172,6 +173,7 @@ export class S3Store extends DataStore {
       Bucket: this.bucket,
       Key: id,
       Body: readStream,
+      ACL: 'public-read',
     })
     return data.ETag as string
   }
@@ -307,6 +309,7 @@ export class S3Store extends DataStore {
       Bucket: this.bucket,
       Key: metadata.file.id,
       UploadId: metadata['upload-id'],
+      ACL: 'public-read',
       MultipartUpload: {
         Parts: parts.map((part) => {
           return {
